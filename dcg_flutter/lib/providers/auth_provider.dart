@@ -23,12 +23,13 @@ class AuthProvider with ChangeNotifier {
 
       // Simulated success response
       _user = User(
-        id: '1',
-        name: 'John Doe',
+        id: '22205191004',
+        name: 'Md Mahmudul Hasan Sumon',
         studentId: studentId,
-        email: 'john.doe@example.com',
-        department: 'Computer Science',
-        semester: '6th',
+        email: 'sumon22205191004@diu.edu.bd',
+        phone: '01531731250',
+        department: 'Computer Science & Engineering',
+        semester: '8th',
       );
 
       setLoading(false);
@@ -48,12 +49,13 @@ class AuthProvider with ChangeNotifier {
 
       // Simulated success response
       _user = User(
-        id: '1',
-        name: userData['name']!,
-        studentId: userData['studentId']!,
-        email: userData['email']!,
-        department: userData['department']!,
-        semester: userData['semester']!,
+        id: "1",
+        name: "Md Mahmudul Hasan Sumon",
+        studentId: "22205191004",
+        email: "sumon22205191004@diu.edu.bd",
+        phone: "01531731250",
+        department: "Computer Science",
+        semester: "Fall 2023",
       );
 
       setLoading(false);
