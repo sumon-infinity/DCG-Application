@@ -71,6 +71,7 @@ class MyApp extends StatelessWidget {
     );
 
     return MaterialApp.router(
+      debugShowCheckedModeBanner: false,
       title: 'DCG App',
       theme: AppTheme.lightTheme,
       routerConfig: router,
