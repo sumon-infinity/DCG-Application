@@ -3,6 +3,10 @@ name: Deploy Flutter Web to GitHub Pages
 on:
   push:
     branches: [ flutter ]  # Deploy when pushing to flutter branch
+    paths-ignore:
+      - '**.md'
+      - '.github/workflows/build-and-release.yml'
+      - '.github/workflows/manual-build.yml'
   workflow_dispatch:  # Allow manual triggering
 
 jobs:

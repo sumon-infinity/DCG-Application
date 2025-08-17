@@ -1,0 +1,67 @@
+name: Manual Build and Test
+
+on:
+  workflow_dispatch:  # Manual trigger only
+    inputs:
+      build_type:
+        description: 'Build type'
+        required: true
+        default: 'both'
+        type: choice
+        options:
+        - apk
+        - web
+        - both
+
+jobs:
+  build:
+    name: Build Flutter App
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+    
+    - name: Setup Java (for APK build)
+      if: github.event.inputs.build_type == 'apk' || github.event.inputs.build_type == 'both'
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin'
+        java-version: '17'
+    
+    - name: Setup Flutter
+      uses: subosito/flutter-action@v2
+      with:
+        flutter-version: '3.24.0'
+        channel: 'stable'
+    
+    - name: Install dependencies
+      run: flutter pub get
+    
+    - name: Build APK
+      if: github.event.inputs.build_type == 'apk' || github.event.inputs.build_type == 'both'
+      run: flutter build apk --release
+    
+    - name: Build Web
+      if: github.event.inputs.build_type == 'web' || github.event.inputs.build_type == 'both'
+      run: flutter build web --release
+    
+    - name: Upload APK artifact
+      if: github.event.inputs.build_type == 'apk' || github.event.inputs.build_type == 'both'
+      uses: actions/upload-artifact@v4
+      with:
+        name: android-apk-test
+        path: build/app/outputs/flutter-apk/app-release.apk
+    
+    - name: Create and upload web artifact
+      if: github.event.inputs.build_type == 'web' || github.event.inputs.build_type == 'both'
+      run: |
+        cd build/web
+        tar -czf ../../dcg-web-test.tar.gz .
+    
+    - name: Upload web artifact
+      if: github.event.inputs.build_type == 'web' || github.event.inputs.build_type == 'both'
+      uses: actions/upload-artifact@v4
+      with:
+        name: web-build-test
+        path: dcg-web-test.tar.gz
