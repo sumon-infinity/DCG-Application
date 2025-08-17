@@ -73,41 +73,6 @@ jobs:
         name: web-build
         path: dcg-web-build.tar.gz
 
-  deploy-web:
-    name: Deploy to GitHub Pages
-    runs-on: ubuntu-latest
-    needs: build-web
-    
-    permissions:
-      contents: read
-      pages: write
-      id-token: write
-    
-    steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
-    
-    - name: Download web artifact
-      uses: actions/download-artifact@v4
-      with:
-        name: web-build
-    
-    - name: Extract web build
-      run: |
-        mkdir -p web-build
-        tar -xzf dcg-web-build.tar.gz -C web-build
-    
-    - name: Setup Pages
-      uses: actions/configure-pages@v4
-    
-    - name: Upload to Pages
-      uses: actions/upload-pages-artifact@v3
-      with:
-        path: 'web-build'
-    
-    - name: Deploy to GitHub Pages
-      uses: actions/deploy-pages@v4
-
   create-release:
     name: Create Release
     runs-on: ubuntu-latest
@@ -157,7 +122,6 @@ jobs:
           - **APK**: Ready to install on Android devices
           
           ### 🌐 Web
-          - **Live Demo**: https://sumon-infinity.github.io/DCG-Application/
           - **Web Build**: Download and host on your own server
           
           ### 📋 Changes
@@ -172,8 +136,9 @@ jobs:
           3. Install the APK
           
           **Web:**
-          1. Visit the live demo link above, or
-          2. Download the web build and extract it to your web server
+          1. Download the web build archive
+          2. Extract it to your web server directory
+          3. Serve the files using any web server
         files: |
           DCG-Application-${{ steps.version.outputs.version }}.apk
           DCG-Application-web-${{ steps.version.outputs.version }}.tar.gz

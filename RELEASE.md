@@ -31,8 +31,7 @@ git push origin v1.0.0
 ### 1. Build and Release (`build-and-release.yml`)
 - **Trigger**: Version tags (v*.*.*) or manual dispatch
 - **Builds**: APK + Web
-- **Output**: GitHub Release with both builds
-- **Deploys**: Web to GitHub Pages
+- **Output**: GitHub Release with both builds as downloadable files
 
 ### 2. Manual Build (`manual-build.yml`)
 - **Trigger**: Manual dispatch only
@@ -54,7 +53,7 @@ git push origin v1.0.0
 ### Web Build
 - **Location**: `build/web/`
 - **Target**: Web browsers
-- **Deployment**: GitHub Pages + downloadable archive
+- **Deployment**: Self-hosted or any web server
 
 ## 🛠️ Setup Requirements
 
@@ -101,7 +100,7 @@ Use semantic versioning (MAJOR.MINOR.PATCH):
 After a successful release:
 
 - **APK**: `https://github.com/sumon-infinity/DCG-Application/releases`
-- **Web**: `https://sumon-infinity.github.io/DCG-Application/`
+- **Web Build**: `https://github.com/sumon-infinity/DCG-Application/releases` (download and host yourself)
 - **Source**: `https://github.com/sumon-infinity/DCG-Application`
 
 ## 🐛 Troubleshooting
