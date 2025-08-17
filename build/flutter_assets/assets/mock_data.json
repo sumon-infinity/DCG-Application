@@ -1,0 +1,335 @@
+{
+  "app_config": {
+    "app_name": "DCG",
+    "app_full_name": "Daffodil CrisisGuard",
+    "tagline": "Stay Alert, Stay Safe",
+    "subtitle": "Stay Safe with DIU Safety App!",
+    "description": "Instantly connect with students, alumni, teachers, and the proctor office. Quick alerts, easy communication - Because your safety, our priority!"
+  },
+  "medicalConditions": [
+    {
+      "name": "Heart Attack",
+      "description": "Chest pain, shortness of breath, nausea"
+    },
+    {
+      "name": "Stroke",
+      "description": "Sudden numbness, confusion, trouble speaking"
+    },
+    {
+      "name": "Allergic Reaction",
+      "description": "Swelling, difficulty breathing, rash"
+    },
+    {
+      "name": "Diabetes Emergency",
+      "description": "Very high or low blood sugar levels"
+    },
+    {
+      "name": "Seizure",
+      "description": "Uncontrolled shaking, loss of consciousness"
+    },
+    {
+      "name": "Breathing Difficulty",
+      "description": "Trouble breathing, wheezing, chest tightness"
+    }
+  ],
+  "emergency_contacts": [
+    {
+      "id": "1",
+      "name": "University Security",
+      "phone": "+880-2-9138234",
+      "type": "security",
+      "available_24_7": true
+    },
+    {
+      "id": "2",
+      "name": "National Emergency (999)",
+      "phone": "999",
+      "type": "emergency",
+      "available_24_7": true
+    },
+    {
+      "id": "3",
+      "name": "Police (100)",
+      "phone": "100",
+      "type": "police",
+      "available_24_7": true
+    },
+    {
+      "id": "4",
+      "name": "Fire Service (102)",
+      "phone": "102",
+      "type": "fire",
+      "available_24_7": true
+    },
+    {
+      "id": "5",
+      "name": "Medical Emergency (199)",
+      "phone": "199",
+      "type": "medical",
+      "available_24_7": true
+    }
+  ],
+  "hospitals": [
+    {
+      "id": "1",
+      "name": "Daffodil International University Hospital",
+      "type": "hospital",
+      "address": "Dhanmondi, Dhaka-1205",
+      "phone": "+880-2-9670101",
+      "latitude": 23.7465,
+      "longitude": 90.3742,
+      "distance": 2.5,
+      "services": ["Emergency", "General Medicine", "Surgery", "Cardiology"],
+      "rating": 4.5,
+      "open_24_7": true
+    },
+    {
+      "id": "2",
+      "name": "Apollo Hospital",
+      "type": "hospital",
+      "address": "Plot 81, Block E, Bashundhara R/A, Dhaka-1229",
+      "phone": "+880-2-8401661",
+      "latitude": 23.8103,
+      "longitude": 90.4125,
+      "distance": 5.2,
+      "services": ["Emergency", "ICU", "Surgery", "Specialized Care"],
+      "rating": 4.8,
+      "open_24_7": true
+    },
+    {
+      "id": "3",
+      "name": "Square Hospital",
+      "type": "hospital",
+      "address": "18/F, Bir Uttam Qazi Nuruzzaman Sarak, West Panthapath, Dhaka",
+      "phone": "+880-2-8159457",
+      "latitude": 23.7516,
+      "longitude": 90.3740,
+      "distance": 3.8,
+      "services": ["Emergency", "Diagnostics", "Surgery", "Maternity"],
+      "rating": 4.6,
+      "open_24_7": true
+    }
+  ],
+  "police_stations": [
+    {
+      "id": "1",
+      "name": "Dhanmondi Police Station",
+      "type": "police",
+      "address": "Road 2, Dhanmondi, Dhaka-1205",
+      "phone": "+880-2-9661551",
+      "latitude": 23.7461,
+      "longitude": 90.3742,
+      "distance": 1.8,
+      "services": ["Emergency Response", "Crime Reporting", "Traffic Control"],
+      "officer_in_charge": "Md. Abdul Rahman"
+    },
+    {
+      "id": "2",
+      "name": "Ramna Police Station",
+      "type": "police",
+      "address": "Ramna Park, Dhaka-1000",
+      "phone": "+880-2-9556049",
+      "latitude": 23.7376,
+      "longitude": 90.3947,
+      "distance": 4.2,
+      "services": ["Emergency Response", "Crime Investigation", "Public Safety"],
+      "officer_in_charge": "Md. Karim Uddin"
+    }
+  ],
+  "psychology_services": [
+    {
+      "id": "1",
+      "name": "DIU Counseling Center",
+      "type": "counseling",
+      "address": "Daffodil International University, Dhanmondi Campus",
+      "phone": "+880-2-9138234",
+      "email": "counseling@daffodilvarsity.edu.bd",
+      "available_hours": "9:00 AM - 5:00 PM",
+      "services": ["Individual Counseling", "Group Therapy", "Crisis Intervention", "Academic Support"],
+      "counselors": [
+        {
+          "name": "Dr. Sarah Ahmed",
+          "specialization": "Clinical Psychology",
+          "experience": "8 years"
+        },
+        {
+          "name": "Dr. Md. Rafiq Hassan",
+          "specialization": "Behavioral Therapy",
+          "experience": "12 years"
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "name": "Mind Care Clinic",
+      "type": "clinic",
+      "address": "House 45, Road 16A, Dhanmondi, Dhaka",
+      "phone": "+880-2-8615234",
+      "email": "info@mindcare.com.bd",
+      "available_hours": "10:00 AM - 8:00 PM",
+      "services": ["Depression Treatment", "Anxiety Management", "Stress Counseling", "Family Therapy"],
+      "rating": 4.7
+    }
+  ],
+  "health_conditions": [
+    {
+      "id": "1",
+      "name": "Diabetes",
+      "symptoms": ["Frequent urination", "Excessive thirst", "Unexplained weight loss", "Fatigue"],
+      "emergency_signs": ["Very high blood sugar", "Diabetic coma", "Severe dehydration"],
+      "first_aid": ["Check blood sugar", "Give water if conscious", "Call emergency services"]
+    },
+    {
+      "id": "2",
+      "name": "Heart Attack",
+      "symptoms": ["Chest pain", "Shortness of breath", "Nausea", "Cold sweat"],
+      "emergency_signs": ["Severe chest pain", "Loss of consciousness", "Irregular heartbeat"],
+      "first_aid": ["Call 999 immediately", "Give aspirin if available", "Keep patient calm", "Perform CPR if needed"]
+    },
+    {
+      "id": "3",
+      "name": "Asthma Attack",
+      "symptoms": ["Wheezing", "Coughing", "Tight chest", "Difficulty breathing"],
+      "emergency_signs": ["Unable to speak", "Blue lips or face", "Severe breathlessness"],
+      "first_aid": ["Use rescue inhaler", "Sit upright", "Stay calm", "Call for help if severe"]
+    },
+    {
+      "id": "4",
+      "name": "Allergic Reaction",
+      "symptoms": ["Skin rash", "Swelling", "Itching", "Difficulty breathing"],
+      "emergency_signs": ["Severe swelling", "Difficulty breathing", "Rapid pulse", "Loss of consciousness"],
+      "first_aid": ["Remove allergen", "Use antihistamine", "Call emergency if severe", "Use EpiPen if available"]
+    }
+  ],
+  "safe_zones": [
+    {
+      "id": "1",
+      "name": "DIU Main Campus",
+      "address": "Dhanmondi, Dhaka",
+      "latitude": 23.7465,
+      "longitude": 90.3742,
+      "type": "university",
+      "security_level": "high",
+      "contact": "+880-2-9138234",
+      "features": ["24/7 Security", "CCTV Surveillance", "Emergency Buttons"]
+    },
+    {
+      "id": "2",
+      "name": "Dhanmondi Police Station",
+      "address": "Road 2, Dhanmondi",
+      "latitude": 23.7461,
+      "longitude": 90.3742,
+      "type": "police_station",
+      "security_level": "maximum",
+      "contact": "+880-2-9661551",
+      "features": ["Police Presence", "Emergency Response", "Safe Reporting"]
+    },
+    {
+      "id": "3",
+      "name": "Dhanmondi Community Center",
+      "address": "Road 8, Dhanmondi",
+      "latitude": 23.7470,
+      "longitude": 90.3750,
+      "type": "community",
+      "security_level": "medium",
+      "contact": "+880-2-8615789",
+      "features": ["Well Lit", "Public Space", "Regular Patrol"]
+    }
+  ],
+  "faq": [
+    {
+      "id": "1",
+      "question": "What is DCG?",
+      "answer": "DCG (Daffodil CrisisGuard) is a safety application designed for Daffodil International University students, faculty, and staff. It provides emergency alerts, quick communication with authorities, and access to safety resources."
+    },
+    {
+      "id": "2",
+      "question": "How do I send an emergency alert?",
+      "answer": "To send an emergency alert, tap the 'Emergency Alert' button on the main screen, select the type of emergency, and confirm. The alert will be sent to university security and relevant authorities immediately."
+    },
+    {
+      "id": "3",
+      "question": "Who will be contacted when I use the app?",
+      "answer": "When you send an emergency alert, the following will be notified: University Security, Local Police, Your emergency contact, DIU Administration, and Medical services (if applicable)."
+    },
+    {
+      "id": "4",
+      "question": "Does the app share my location?",
+      "answer": "Yes, when you send an emergency alert, your location is automatically shared with emergency responders to help them reach you quickly. Location sharing only occurs during emergencies or when explicitly requested."
+    },
+    {
+      "id": "5",
+      "question": "How can I find nearby police stations and hospitals?",
+      "answer": "Use the 'Nearest Services' feature from the main menu. It will show nearby hospitals, police stations, and other emergency services with directions and contact information."
+    },
+    {
+      "id": "6",
+      "question": "How do I register for psychological support?",
+      "answer": "Go to 'Psychology Services' from the main menu, then tap 'Make Appointment'. Fill out the counseling form with your details and preferred time. Our counseling team will contact you within 24 hours."
+    },
+    {
+      "id": "7",
+      "question": "Can I use this app off-campus?",
+      "answer": "Yes, the app works anywhere. While it's optimized for DIU campus safety, emergency features and contacts work globally. Off-campus alerts will be forwarded to local emergency services."
+    },
+    {
+      "id": "8",
+      "question": "Is my personal information secure?",
+      "answer": "Absolutely. We use industry-standard encryption to protect your data. Personal information is only shared with emergency responders during actual emergencies and with your explicit consent."
+    }
+  ],
+  "user_profiles": [
+    {
+      "student_id": "201-15-3456",
+      "name": "Mahmudul Hasan Sumon",
+      "email": "sumonitm@diu.edu.bd",
+      "department": "ITM",
+      "semester": "7th",
+      "batch": "6th",
+      "emergency_contact": "+8801234567890",
+      "blood_group": "A+",
+      "medical_conditions": ["None"],
+      "profile_image": null
+    }
+  ],
+  "departments": [
+    "Computer Science & Engineering",
+    "Electrical & Electronic Engineering",
+    "Business Administration",
+    "English",
+    "Law",
+    "Pharmacy",
+    "Civil Engineering",
+    "Architecture",
+    "Textile Engineering",
+    "Journalism & Mass Communication"
+  ],
+  "appointment_slots": [
+    {
+      "date": "2025-08-18",
+      "slots": ["9:00 AM", "10:00 AM", "11:00 AM", "2:00 PM", "3:00 PM", "4:00 PM"]
+    },
+    {
+      "date": "2025-08-19",
+      "slots": ["9:00 AM", "10:00 AM", "11:00 AM", "2:00 PM", "3:00 PM", "4:00 PM"]
+    },
+    {
+      "date": "2025-08-20",
+      "slots": ["9:00 AM", "10:00 AM", "11:00 AM", "2:00 PM", "3:00 PM", "4:00 PM"]
+    }
+  ],
+  "counseling_criteria": [
+    {
+      "value": "student",
+      "label": "Student"
+    },
+    {
+      "value": "faculty",
+      "label": "Faculty"
+    },
+    {
+      "value": "staff",
+      "label": "Staff"
+    }
+  ]
+}
