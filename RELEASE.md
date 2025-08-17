@@ -129,8 +129,12 @@ After a successful release:
 Edit `.github/workflows/build-and-release.yml`:
 
 ```yaml
-# Change Flutter version
-flutter-version: '3.24.0'
+# Use latest stable Flutter (automatically gets compatible Dart SDK)
+flutter-version: ''  # Latest stable
+channel: 'stable'
+
+# Or specify latest version that supports your Dart SDK requirements
+channel: 'stable'
 
 # Modify build commands
 run: flutter build apk --release --target-platform android-arm64
