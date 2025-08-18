@@ -4,7 +4,6 @@ import 'package:lucide_icons/lucide_icons.dart';
 
 import '../../../shared/services/mock_data_service.dart';
 import '../../../shared/widgets/back_button.dart';
-import '../../../shared/widgets/dcg_logo.dart';
 
 class FAQScreen extends StatefulWidget {
   const FAQScreen({super.key});
@@ -63,8 +62,6 @@ class _FAQScreenState extends State<FAQScreen> {
                   child: Column(
                     children: [
                       const SizedBox(height: 60), // Space for back button
-                      const DCGLogo(),
-                      const SizedBox(height: 24),
                       Text(
                         'FAQ',
                         style: Theme.of(context).textTheme.headlineLarge?.copyWith(
