@@ -1,124 +1,156 @@
-name: Flutter Release
+name: CI - Build and Release
+
+on:
+  push:
+    branches: [ main, flutter, develop ]
+  pull_request:
+    branches: [ main, flutter ]
 
 permissions:
   contents: write
   issues: write
   pull-requests: write
 
-on:
-  push:
-    branches:
-      - main
-
 jobs:
-  build_and_release:
+  test:
     runs-on: ubuntu-latest
-
+    
     steps:
-    - name: Checkout code
+    - name: Checkout repository
       uses: actions/checkout@v4
-
-    - name: Set up Dart
-      uses: dart-lang/setup-dart@v1
-      with:
-        sdk: "3.3.0"
-
+      
     - name: Set up Flutter
       uses: subosito/flutter-action@v2
       with:
+        flutter-version: '3.35.1'
         channel: 'stable'
-    
+        cache: true
+        
     - name: Install dependencies
       run: flutter pub get
 
-    - name: Clean Flutter
-      run: flutter clean
-
+  build-web:
+    runs-on: ubuntu-latest
+    needs: test
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Set up Flutter
+      uses: subosito/flutter-action@v2
+      with:
+        flutter-version: '3.35.1'
+        channel: 'stable'
+        cache: true
+        
+    - name: Install dependencies
+      run: flutter pub get
+      
     - name: Build Web
-      run: flutter build web --release
+      run: flutter build web --release 
+      
+    - name: Upload Web Build Artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: web-build
+        path: build/web/
 
-    - name: Build Android (APK)
+  build-android:
+    runs-on: ubuntu-latest
+    needs: test
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Set up Java
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin'
+        java-version: '17'
+        
+    - name: Set up Flutter
+      uses: subosito/flutter-action@v2
+      with:
+        flutter-version: '3.35.1'
+        channel: 'stable'
+        cache: true
+        
+    - name: Install dependencies
+      run: flutter pub get
+      
+    - name: Build APK
       run: flutter build apk --release
+      
+    - name: Copy and rename APK
+      run: cp build/app/outputs/flutter-apk/app-release.apk build/app/outputs/flutter-apk/dcg.apk
+      
+    - name: Upload APK Artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: android-apk
+        path: build/app/outputs/flutter-apk/dcg.apk
 
-    - name: Verify Android APK exists
+  release:
+    runs-on: ubuntu-latest
+    needs: [build-web, build-android]
+    if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/flutter')
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Download Web Build
+      uses: actions/download-artifact@v4
+      with:
+        name: web-build
+        path: web-build/
+        
+    - name: Download Android APK
+      uses: actions/download-artifact@v4
+      with:
+        name: android-apk
+        path: android-build/
+        
+    - name: Create Web ZIP
       run: |
-        test -f build/app/outputs/apk/release/app-release.apk || { echo "APK not found. Check Flutter build output path."; exit 1; }
-        cp build/app/outputs/apk/release/app-release.apk build/app/outputs/apk/release/itm-connect.apk
-
-    # - name: Build iOS (IPA)
-    #   run: flutter build ipa --no-codesign
-
-    - name: Generate Version Number
-      id: vars
-      run: echo "version=$(git rev-list --count HEAD)" >> $GITHUB_OUTPUT
-
-    - name: Zip Web Build
-      run: zip -r web_build.zip build/web
-
-    - name: Ensure 'latest' release exists (or update it)
+        cd web-build
+        zip -r ../dcg-web-build.zip .
+        cd ..
+        
+    - name: Generate Release Info
+      id: release_info
+      run: |
+        TIMESTAMP=$(date +"%Y%m%d-%H%M%S")
+        COMMIT_SHORT=$(git rev-parse --short HEAD)
+        TAG_NAME="build-${TIMESTAMP}-${COMMIT_SHORT}"
+        RELEASE_NAME="FinDiu Build ${TIMESTAMP}"
+        echo "TAG_NAME=${TAG_NAME}" >> $GITHUB_OUTPUT
+        echo "RELEASE_NAME=${RELEASE_NAME}" >> $GITHUB_OUTPUT
+        
+    - name: Create GitHub Release
       uses: softprops/action-gh-release@v2
       with:
-        tag_name: latest
-        name: ITM Connect — Latest
-        draft: false
-        prerelease: false
-        generate_release_notes: false
+        tag_name: ${{ steps.release_info.outputs.TAG_NAME }}
+        name: ${{ steps.release_info.outputs.RELEASE_NAME }}
         body: |
-          This is the stable rolling release. Assets here are kept up to date with the latest successful build from main.
-          Commit: ${{ github.sha }}
-        overwrite: true
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-    - name: Replace assets on 'latest' (web + apk)
-      uses: softprops/action-gh-release@v2
-      with:
-        tag_name: latest
-        files: |
-          web_build.zip
-          build/app/outputs/apk/release/itm-connect.apk
-        file_glob: false
-        overwrite: true
-        asset_name: |
-          ITM-Connect-Web.zip
-          ITM-Connect.apk
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-    - name: Create archival release v${{ steps.vars.outputs.version }} (attach web)
-      uses: softprops/action-gh-release@v2
-      with:
-        tag_name: v${{ steps.vars.outputs.version }}
-        name: ITM Connect — v${{ steps.vars.outputs.version }}
+          ## FinDiu Development Build
+          
+          **Branch**: ${{ github.ref_name }}  
+          **Commit**: ${{ github.sha }}  
+          **Build Time**: $(date)
+          
+          ### Downloads
+          - **Android APK**: Ready to install on Android devices
+          - **Web Build**: Extract ZIP and deploy to web server
+          
+          ### Installation
+          - **Android**: Download `dcg.apk` and install
+          - **Web**: Download `dcg-web-build.zip`, extract and serve
         draft: false
-        prerelease: false
-        generate_release_notes: false
-        body: |
-          Release generated from commit ${{ github.sha }}
+        prerelease: true
         files: |
-          web_build.zip
-        file_glob: false
-        overwrite: true
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-    - name: Upload Android Artifact to archival v${{ steps.vars.outputs.version }}
-      uses: softprops/action-gh-release@v2
-      with:
-        tag_name: v${{ steps.vars.outputs.version }}
-        files: |
-          build/app/outputs/apk/release/itm-connect.apk
-        file_glob: false
-        overwrite: true
-        asset_name: ITM-Connect-v${{ steps.vars.outputs.version }}.apk
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-    # - name: Upload iOS Artifact to archival v${{ steps.vars.outputs.version }}
-    #   uses: softprops/action-gh-release@v2
-    #   with:
-    #     tag_name: v${{ steps.vars.outputs.version }}
-    #     files: |
-    #       build/ios/ipa/runner.ipa#runner.ipa
-    #   env:
-    #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          android-build/dcg.apk
+          dcg-web-build.zip
+        fail_on_unmatched_files: true
